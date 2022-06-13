@@ -1,13 +1,12 @@
 import React from "react";
 import { styled } from "@material-ui/core/styles";
 import Box from "@mui/material/Box";
-import Paper from "@material-ui/core/Paper";
+import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
   color: theme.palette.text.secondary,
@@ -20,21 +19,20 @@ const Posts = (props) => {
     <React.Fragment>
       <Box sx={{ display: "flex", alignContent: "column", justifyContent: "center", width: '100%' }}>
         <Box sx={{ width: '50%' }}>
-          <Stack spacing={1}>
+          <Stack spacing={0} divider={<Divider orientation="horizontal" flexItem />}>
             {posts.map((post) => {
               return (
-                <Item key={post.id}>
-                  <Typography gutterBottom variant="h6">{post.writer} said:</Typography>
-                  <Typography gutterBottom variant="p">{post.content}</Typography>
-                  <Typography gutterBottom variant="p">last modified at:{post.last_modified}</Typography>
+                <Item key={post.id} button divider square>
+                  <Typography variant="p"> {post.author_name} said:</Typography>
+                  <Typography gutterBottom variant="body2" display="block">{post.content}</Typography>
+                  <Typography gutterBottom variant="caption">{post.likes_line} last modified at: {post.edited}</Typography>
                 </Item>
-
               )
             })}
           </Stack>
         </Box>
       </Box>
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 

@@ -21,3 +21,9 @@ class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pass
+
+
+class UserDetail(generics.RetrieveDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    pass

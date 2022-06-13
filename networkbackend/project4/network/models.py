@@ -28,9 +28,11 @@ class Post(models.Model):
     def likes_number(self):
         return len(self.likes.all())
 
-    def __str__(self):
-        return f'{self.author} said: {self.content}.'\
-            f'{self.likes_number()} like{"s" if self.likes else ""}'
+    def likes_line(self):
+        return f'{self.likes_number()} like{"s" if self.likes_number() != 1 else ""}'
 
-    def writter(self):
+    def edited(self):
+        return self.last_modified.strftime('%b %d, %I:%M %p')
+
+    def author_name(self):
         return self.author.username
