@@ -20,7 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('network.urls', 'network'), namespace='network')),
     path('api/', include(('network_api.urls', 'network_api'), namespace='network_api')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
-
-# JUST FIXED URLS TRY RUNSERVER TO GET THE NEW ERROR
-# DON'T FORGET TO VENV!!!!
