@@ -13,6 +13,10 @@ class PostUserWritePermission(BasePermission):
         return obj.author == request.user
 
 
+class ProfileUserPermission(BasePermission):
+    message = 'You must be authenticated to follow someone.'
+
+
 class PostList(generics.ListCreateAPIView):
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     queryset = Post.objects.all()
