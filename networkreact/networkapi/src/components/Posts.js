@@ -1,37 +1,66 @@
 import React from "react";
-import { styled } from "@material-ui/core/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
+import styled from "styled-components";
 
-const Item = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+const Postheader = styled.h1`
+font-size: 15px;
+text-align: left;
+color: white;
+font-weight: 700;
+`;
+
+const Postcontent = styled.p`
+font-size: 12px;
+align-self:left;
+color: white;
+`;
+
+const Postdetail = styled.p`
+font-size: 12px;
+color: #8899A6;
+`;
+
+const Postitem = styled.div`
+display:flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 10px 15px;
+border-bottom: 1px;
+border-color: grey;
+border-bottom-style: solid;
+`;
+
+const Timeline = styled.div`
+display:flex;
+flex-direction: column;
+background: black;
+margin-bottom: 4px;
+width: 600px;
+align-items: stretch;
+`;
+
+const Home = styled.section`
+display:flex;
+justify-content: center;
+`;
 
 const Posts = (props) => {
   const { posts } = props;
   if (!posts || posts.length === 0) return <p> Can not find any posts, sorry</p>;
   return (
     <React.Fragment>
-      <Box sx={{ display: "flex", alignContent: "column", justifyContent: "center", width: '100%' }}>
-        <Box sx={{ width: '50%' }}>
-          <Stack spacing={0} divider={<Divider orientation="horizontal" flexItem />}>
-            {posts.map((post) => {
-              return (
-                <Item key={post.id} button divider square>
-                  <Typography variant="p"> {post.author_name} said:</Typography>
-                  <Typography gutterBottom variant="body2" display="block">{post.content}</Typography>
-                  <Typography gutterBottom variant="caption">{post.likes_line} last modified at: {post.edited}</Typography>
-                </Item>
-              )
-            })}
-          </Stack>
-        </Box>
-      </Box>
+      <Home>
+        <Timeline>
+          {posts.map((post) => {
+            return (
+              <Postitem key={post.id} button divider square>
+                <Postheader> {post.author_name} said:</Postheader>
+                <Postcontent>{post.content}</Postcontent>
+                <Postdetail>{post.likes_line} last modified at: {post.edited}</Postdetail>
+              </Postitem>
+            )
+          })}
+        </Timeline>
+      </Home>
     </React.Fragment >
   );
 }
