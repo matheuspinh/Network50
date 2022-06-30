@@ -1,29 +1,36 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles } from "@material-ui/core/styles";
+import styled from "styled-components";
 
-const useStyles = makeStyles(theme => ({
-  appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-  },
-}));
+const Wrapper = styled.section`
+display:flex;
+flex-direction:row;
+height:50px;
+color:white;
+`;
+
+const TextContainer = styled.div`
+height:44px;
+margin-right:20px;
+margin-left:15px;
+`;
+
+const TextContainerRegister = styled(TextContainer)`
+margin-left: auto;
+`;
+
+const Text = styled.h1`
+font-size:19px;
+font-weight:700;`;
+
 
 function Header() {
-  const classes = useStyles();
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position="static" color="white" elevation={0} className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Network50
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </React.Fragment>
+    <Wrapper>
+      <TextContainer><Text>Network50</Text></TextContainer>
+      <TextContainer><Text>Posts</Text></TextContainer>
+      <TextContainerRegister><Text>Register</Text></TextContainerRegister>
+      <TextContainer><Text>Login</Text></TextContainer>
+    </Wrapper>
   );
 }
 
