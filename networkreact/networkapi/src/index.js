@@ -6,6 +6,7 @@ import App from './App';
 import Header from './components/Header';
 import Register from './components/Register';
 import Login from './components/Login';
+import Logout from './components/Logout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +17,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </React.StrictMode>
   </Router>

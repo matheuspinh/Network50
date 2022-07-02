@@ -21,7 +21,6 @@ function App() {
   return (
     <body class='App-background'>
       <div className="App">
-        <h1>Latest Posts</h1>
         <PostLoading isLoading={appState.loading} posts={appState.posts} />
       </div>
     </body>);

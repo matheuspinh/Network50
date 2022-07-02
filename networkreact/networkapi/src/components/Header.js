@@ -37,6 +37,7 @@ function Header() {
       <TextContainer><Text>Posts</Text></TextContainer>
       <TextContainerRegister><Text><Textlink to="/Register">Register</Textlink></Text></TextContainerRegister>
       <TextContainer><Text><Textlink to="/Login">Login</Textlink></Text></TextContainer>
+      <TextContainer><Text><Textlink to="/Logout">Logout</Textlink></Text></TextContainer>
     </Wrapper >
   );
 }

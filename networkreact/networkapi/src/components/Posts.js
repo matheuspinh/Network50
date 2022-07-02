@@ -45,7 +45,7 @@ justify-content: center;
 
 const Posts = (props) => {
   const { posts } = props;
-  if (!posts || posts.length === 0) return <p> Can not find any posts, sorry</p>;
+  if (!posts || posts.length === 0) return <p> Could not find any posts, sorry</p>;
   return (
     <React.Fragment>
       <Home>
