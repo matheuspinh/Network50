@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const Wrapper = styled.section`
 display:flex;
@@ -20,7 +21,13 @@ margin-left: auto;
 
 const Text = styled.h1`
 font-size:19px;
-font-weight:700;`;
+font-weight:700;
+`;
+
+const Textlink = styled(NavLink)`
+color:inherit;
+text-decoration:inherit;
+`;
 
 
 function Header() {
@@ -28,7 +35,7 @@ function Header() {
     <Wrapper>
       <TextContainer><Text>Network50</Text></TextContainer>
       <TextContainer><Text>Posts</Text></TextContainer>
-      <TextContainerRegister><Text>Register</Text></TextContainerRegister>
+      <TextContainerRegister><Text><Textlink to="/Register">Register</Textlink></Text></TextContainerRegister>
       <TextContainer><Text>Login</Text></TextContainer>
     </Wrapper>
   );
