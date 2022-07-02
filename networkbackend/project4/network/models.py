@@ -25,6 +25,9 @@ class Post(models.Model):
     likes = models.ManyToManyField(
         User, related_name='liked_posts', blank=True)
 
+    class Meta:
+        ordering = ['-last_modified', ]
+
     def likes_number(self):
         return len(self.likes.all())
 
