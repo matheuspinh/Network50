@@ -23,6 +23,3 @@ class Test_Create_Post(TestCase):
         self.assertEqual(author, 'testuser1')
         self.assertEqual(content, 'Post content')
         self.assertEqual(likes, [1, 2])
-
-
-# REVISTING THIS LATER
