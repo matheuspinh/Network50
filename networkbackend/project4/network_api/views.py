@@ -56,4 +56,4 @@ class UserCreate(APIView):
             newuser = reg_serializer.save()
             if newuser:
                 return Response(status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -36,8 +36,8 @@ function Header() {
       <TextContainer><Text>Network50</Text></TextContainer>
       <TextContainer><Text>Posts</Text></TextContainer>
       <TextContainerRegister><Text><Textlink to="/Register">Register</Textlink></Text></TextContainerRegister>
-      <TextContainer><Text>Login</Text></TextContainer>
-    </Wrapper>
+      <TextContainer><Text><Textlink to="/Login">Login</Textlink></Text></TextContainer>
+    </Wrapper >
   );
 }
 
