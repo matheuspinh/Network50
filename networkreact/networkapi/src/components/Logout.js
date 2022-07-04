@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axiosInstance from '../axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ export default function SignUp() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     axiosInstance.defaults.headers['Authorization'] = null;
-    navigate('/login');
+    navigate('/');
   });
   return <div>Logout</div>;
 }

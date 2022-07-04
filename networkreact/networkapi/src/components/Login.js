@@ -80,7 +80,7 @@ export default function SignUp() {
       })
       .then((res) => {
         localStorage.setItem('access_token', res.data.access);
-        localStorage.setItem('access_token', res.data.refresh);
+        localStorage.setItem('refresh_token', res.data.refresh);
         axiosInstance.defaults.headers['Authorization'] =
           'JWT ' + localStorage.getItem('access_token');
         navigate('/');
