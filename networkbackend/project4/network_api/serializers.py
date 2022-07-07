@@ -10,10 +10,19 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    posts = PostSerializer(many=True)
+
     class Meta:
         model = User
         fields = ('id', 'username', 'followers',
-                  'followers_number', 'following_number', 'password', 'email')
+                  'followers_number', 'following_number', 'password', 'email', 'posts')
+
+    # def create(self, validated_data):
+    #     userposts_data = validated_data.pop('user_posts')
+    #     user = User.objects.create(**validated_data)
+    #     for user_posts_data in user_posts_data:
+    #         Post.objects.create(author=User, **userposts_data)
+    #     return user
 
 
 class RegisterSerializer(serializers.ModelSerializer):

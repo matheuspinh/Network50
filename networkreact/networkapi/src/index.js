@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Register from './components/Register';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import Profile from './components/Profile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,6 +19,7 @@ root.render(
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/profile/:username" element={<Profile />} />
       </Routes>
     </React.StrictMode>
   </Router>

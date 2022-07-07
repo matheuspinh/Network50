@@ -96,7 +96,7 @@ export default function SignUp() {
           <LoginForm>
             <Input label="Username" name="username" id="username" placeholder="Username" onChange={handleChange} />
             <Input label="Password" id="password" type="password" name="password" placeholder="Password" onChange={handleChange} />
-            <Button type="submit" onClick={handleSubmit}>Sign Up</Button>
+            <Button type="submit" onClick={handleSubmit}>Sign In</Button>
           </LoginForm>
         </FormWrapper>
       </Wrapper>

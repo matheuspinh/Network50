@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Postheader = styled.h1`
 font-size: 15px;
@@ -38,6 +39,10 @@ width: 600px;
 align-items: stretch;
 `;
 
+const ProfileLink = styled(Link)`
+color: inherit;
+`;
+
 const Home = styled.section`
 display:flex;
 justify-content: center;
@@ -53,7 +58,7 @@ const Posts = (props) => {
           {posts.map((post) => {
             return (
               <Postitem key={post.id} button divider square>
-                <Postheader> {post.author_name} said:</Postheader>
+                <Postheader><ProfileLink to={"/Profile/" + post.author_name}>{post.author_name} said:</ProfileLink></Postheader>
                 <Postcontent>{post.content}</Postcontent>
                 <Postdetail>{post.likes_line} last modified at: {post.edited}</Postdetail>
               </Postitem>
