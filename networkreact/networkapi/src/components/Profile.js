@@ -36,6 +36,9 @@ export default function Profile() {
       console.log(res.data);
     });
   }, [setData]);
+
+  const posts = data.profile.posts;
+
   return (
     <React.Fragment>
       <Wrapper>
@@ -44,7 +47,7 @@ export default function Profile() {
           <ProfileDetails>Has {data.profile.followers_number} followers and is following {data.profile.following_number}</ProfileDetails>
         </ProfileWrap>
         <Wrapper>
-          <ProfileName>{data.profile.posts}</ProfileName>
+          <Posts posts={posts} />
         </Wrapper>
       </Wrapper>
     </React.Fragment>
