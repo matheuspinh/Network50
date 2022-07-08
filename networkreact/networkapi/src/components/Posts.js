@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Postform from "./Postform";
+import jwt from "jwt-decode";
 
 const Postheader = styled.h1`
 font-size: 15px;
@@ -44,16 +46,36 @@ color: inherit;
 `;
 
 const Home = styled.section`
+flex-direction: column;
+align-items: center;
 display:flex;
 justify-content: center;
 `;
 
 const Posts = (props) => {
+
+  let isLoggedIn = false;
+
+  let token = localStorage.getItem("access_token");
+
+  function LoggedStatus(props) {
+    if (props === null) {
+      return isLoggedIn = false;
+    } else {
+      return isLoggedIn = true;
+    }
+  }
+
+  LoggedStatus(token);
+
+  console.log(isLoggedIn);
+
   const { posts } = props;
   if (!posts || posts.length === 0) return <p> Could not find any posts, sorry</p>;
   return (
     <React.Fragment>
       <Home>
+        {isLoggedIn ? <Postform /> : <p>You must be logged in to post</p>}
         <Timeline>
           {posts.map((post) => {
             return (

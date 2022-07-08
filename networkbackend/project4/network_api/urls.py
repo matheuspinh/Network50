@@ -1,14 +1,22 @@
-#from django.urls import path
-#from .views import BlacklistTokenView, PostList, PostDetail, UserCreate, UserList, UserDetail
+#from .views import PostList, PostDetail, UserCreate, UserList, UserDetail
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PostList, UserList
+from .views import PostList, UserList, BlacklistTokenView, CreatePost, EditPost, AdminPostDetail
 
 app_name = 'network_api'
 
 router = DefaultRouter()
 router.register('user', UserList, basename='user')
 router.register('posts', PostList, basename='post')
-urlpatterns = router.urls
+
+urlpatterns = [
+    path('', include(router.urls)),
+    path('user/logout/blacklist/', BlacklistTokenView.as_view(), name='blacklist'),
+    path('post/create/', CreatePost.as_view(), name='createpost'),
+    path('post/edit/postdetail/<int:pk>/',
+         AdminPostDetail.as_view(), name='admindetailpost'),
+    path('post/edit/<int:pk>/', EditPost.as_view(), name='editpost'),
+]
 
 
 # urlpatterns = [

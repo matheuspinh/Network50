@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from network.models import Post, User
 from .serializers import PostSerializer, RegisterSerializer, UserSerializer
-from rest_framework.permissions import SAFE_METHODS, BasePermission, AllowAny, IsAdminUser, DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.permissions import SAFE_METHODS, IsAuthenticated, BasePermission, AllowAny, IsAdminUser, DjangoModelPermissionsOrAnonReadOnly
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
@@ -35,7 +35,7 @@ class PostList(viewsets.ModelViewSet):
 
 
 class UserList(viewsets.ModelViewSet):
-    permission_classes = [PostUserWritePermission]
+    permission_classes = [AllowAny]
     serializer_class = UserSerializer
 
     def get_object(self, queryset=None, **kwargs):
@@ -93,6 +93,24 @@ class UserCreate(APIView):
             if newuser:
                 return Response(status=status.HTTP_201_CREATED)
         return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CreatePost(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
+class AdminPostDetail(generics.RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
+class EditPost(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
 
 
 class BlacklistTokenView(APIView):

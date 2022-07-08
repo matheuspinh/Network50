@@ -34,7 +34,7 @@ function Header() {
   return (
     <Wrapper>
       <TextContainer><Text>Network50</Text></TextContainer>
-      <TextContainer><Text>Posts</Text></TextContainer>
+      <TextContainer><Text><Textlink to="/">Posts</Textlink></Text></TextContainer>
       <TextContainerRegister><Text><Textlink to="/Register">Register</Textlink></Text></TextContainerRegister>
       <TextContainer><Text><Textlink to="/Login">Login</Textlink></Text></TextContainer>
       <TextContainer><Text><Textlink to="/Logout">Logout</Textlink></Text></TextContainer>
