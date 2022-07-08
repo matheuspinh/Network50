@@ -55,7 +55,6 @@ justify-content: center;
 const Posts = (props) => {
 
   let isLoggedIn = false;
-
   let token = localStorage.getItem("access_token");
 
   function LoggedStatus(props) {
@@ -67,8 +66,6 @@ const Posts = (props) => {
   }
 
   LoggedStatus(token);
-
-  console.log(isLoggedIn);
 
   const { posts } = props;
   if (!posts || posts.length === 0) return <p> Could not find any posts, sorry</p>;

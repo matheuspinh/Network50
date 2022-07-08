@@ -8,6 +8,10 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Profile from './components/Profile';
+import Postform from './components/Postform';
+import Edit from './components/Edit';
+import Follow from './components/Follow';
+import Like from './components/Like';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,6 +24,10 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/postform" element={<Postform />} />
+        <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/follow/:username" element={<Follow />} />
+        <Route path="/like/:id" element={<Like />} />
       </Routes>
     </React.StrictMode>
   </Router>

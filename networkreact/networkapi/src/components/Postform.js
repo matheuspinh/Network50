@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import jwt from 'jwt-decode';
 
-const Input = styled.input`
+const Input = styled.textarea`
 height:40px;
 background-color:black;
 border-radius:10px;
@@ -13,6 +13,10 @@ box-sizing: border-box;
 border: 1px solid black;
 color:white;
 text-align: center;
+width: 600px;
+height: 200px;
+resize: none;
+text-align: left;
 `;
 
 const RegisterForm = styled.form`
@@ -75,7 +79,7 @@ export default function NewPost() {
   return (
     <React.Fragment>
       <RegisterForm onSubmit={handleSubmit}>
-        <Input label="content" id="content" type="text" name="content" placeholder="content" onChange={handleChange} />
+        <Input label="content" id="content" type="text" name="content" placeholder="What's on your mind?" onChange={handleChange} />
         <Button type="submit" onClick={handleSubmit}>Submit</Button>
       </RegisterForm>
     </React.Fragment>
