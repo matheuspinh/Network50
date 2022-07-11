@@ -12,6 +12,7 @@ import Postform from './components/Postform';
 import Edit from './components/Edit';
 import Follow from './components/Follow';
 import Like from './components/Like';
+import ProfileTimeline from './components/ProfileTimeline';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,6 +22,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile/timeline" element={<ProfileTimeline />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/profile/:username" element={<Profile />} />
