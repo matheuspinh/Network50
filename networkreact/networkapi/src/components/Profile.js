@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axios';
 import { useParams } from 'react-router-dom';
 import styled from "styled-components";
-import Posts from "./Posts";
+import ProfileTimeline from "./ProfileTimeline";
 
 const Wrapper = styled.section`
 display:flex;
@@ -70,7 +70,7 @@ export default function Profile() {
           <Button>Follow {data.profile.username}</Button>
         </ProfileWrap>
         <Wrapper>
-          <Posts posts={posts} />
+          <ProfileTimeline posts={posts} />
         </Wrapper>
       </Wrapper>
     </React.Fragment>
