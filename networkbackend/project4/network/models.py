@@ -7,6 +7,9 @@ class User(AbstractUser):
     followers = models.ManyToManyField(
         'self', related_name='following', symmetrical=False, blank=True)
 
+    def followings(self):
+        return self.following.all()
+
     def followers_number(self):
         return len(self.followers.all())
 

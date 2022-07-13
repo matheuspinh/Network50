@@ -3,6 +3,7 @@ import axiosInstance from '../axios';
 import { useParams } from 'react-router-dom';
 import styled from "styled-components";
 import ProfileTimeline from "./ProfileTimeline";
+import Follow from "./Follow";
 
 const Wrapper = styled.section`
 display:flex;
@@ -55,11 +56,11 @@ export default function Profile() {
   useEffect(() => {
     axiosInstance.get('user/' + username).then((res) => {
       setData({ profile: res.data });
-      console.log(res.data);
     });
   }, [setData, username]);
 
   const posts = data.profile.posts;
+  const ProfileId = data.profile.id;
 
   return (
     <React.Fragment>
@@ -67,7 +68,7 @@ export default function Profile() {
         <ProfileWrap>
           <ProfileName>{data.profile.username}</ProfileName>
           <ProfileDetails>Has {data.profile.followers_number} followers and is following {data.profile.following_number}</ProfileDetails>
-          <Button>Follow {data.profile.username}</Button>
+          <Follow ProfileId={ProfileId} />
         </ProfileWrap>
         <Wrapper>
           <ProfileTimeline posts={posts} />

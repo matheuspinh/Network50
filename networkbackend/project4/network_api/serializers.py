@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'followers',
+        fields = ('id', 'username', 'followers', 'following',
                   'followers_number', 'following_number', 'password', 'email', 'posts')
 
     # def create(self, validated_data):

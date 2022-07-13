@@ -45,43 +45,6 @@ class UserList(viewsets.ModelViewSet):
     def get_queryset(self):
         return User.objects.all()
 
-# class UserList(generics.ListCreateAPIView):
-#    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
-#    queryset = User.objects.all()
-#    serializer_class = UserSerializer
-#    pass
-
-# class PostList(viewsets.ViewSet):
-#     permission_classes = [AllowAny]
-#     queryset = Post.objects.all()
-
-#     def list(self, request):
-#         serializer_class = PostSerializer(self.queryset, many=True)
-#         return Response(serializer_class.data)
-
-#     def retrieve(self, request, pk=None):
-#         post = get_object_or_404(self.queryset, pk=pk)
-#         serializer_class = PostSerializer(post)
-#         return Response(serializer_class.data)
-
-# class PostList(generics.ListCreateAPIView):
-#    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
-#    queryset = Post.objects.all()
-#    serializer_class = PostSerializer
-#    pass
-
-# class PostDetail(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
-#    permission_classes = [PostUserWritePermission]
-#    queryset = Post.objects.all()
-#    serializer_class = PostSerializer
-#    pass
-
-# class UserDetail(generics.RetrieveDestroyAPIView):
-#    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
-#    queryset = User.objects.all()
-#    serializer_class = UserSerializer
-#    pass
-
 
 class UserCreate(APIView):
     permission_classes = [AllowAny]
@@ -113,6 +76,20 @@ class EditPost(generics.UpdateAPIView):
     queryset = Post.objects.all()
 
 
+class FollowView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        user = get_object_or_404(User, id=pk)
+        user.followers.add(request.user)
+        return Response(status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        user = get_object_or_404(User, id=pk)
+        user.followers.remove(request.user)
+        return Response(status=status.HTTP_200_OK)
+
+
 class BlacklistTokenView(APIView):
     permission_classes = [AllowAny]
 
@@ -124,3 +101,51 @@ class BlacklistTokenView(APIView):
             return Response(status=status.HTTP_200_OK)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserDetail(generics.RetrieveDestroyAPIView):
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_object(self, queryset=None, **kwargs):
+        item = self.kwargs.get('pk')
+        return get_object_or_404(User, id=item)
+
+
+# class UserList(generics.ListCreateAPIView):
+#    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+#    queryset = User.objects.all()
+#    serializer_class = UserSerializer
+#    pass
+
+# class PostList(viewsets.ViewSet):
+#     permission_classes = [AllowAny]
+#     queryset = Post.objects.all()
+
+#     def list(self, request):
+#         serializer_class = PostSerializer(self.queryset, many=True)
+#         return Response(serializer_class.data)
+
+#     def retrieve(self, request, pk=None):
+#         post = get_object_or_404(self.queryset, pk=pk)
+#         serializer_class = PostSerializer(post)
+#         return Response(serializer_class.data)
+
+# class PostList(generics.ListCreateAPIView):
+#    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+#    queryset = Post.objects.all()
+#    serializer_class = PostSerializer
+#    pass
+
+# class PostDetail(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
+#    permission_classes = [PostUserWritePermission]
+#    queryset = Post.objects.all()
+#    serializer_class = PostSerializer
+#    pass
+
+class UserDetail(generics.RetrieveDestroyAPIView):
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    pass
