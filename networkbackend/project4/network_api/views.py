@@ -79,6 +79,12 @@ class EditPost(generics.UpdateAPIView):
 class FollowView(APIView):
     permission_classes = [IsAuthenticated]
 
+    def get(self, request, pk, pk2):
+        user = get_object_or_404(User, id=pk)
+        user2 = get_object_or_404(User, id=pk2)
+        value = user2.followers.filter(id=user.id).exists()
+        return Response(value)
+
     def post(self, request, pk):
         user = get_object_or_404(User, id=pk)
         user.followers.add(request.user)
@@ -91,7 +97,7 @@ class FollowView(APIView):
 
 
 class BlacklistTokenView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         try:

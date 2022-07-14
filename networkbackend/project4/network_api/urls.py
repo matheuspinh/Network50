@@ -17,6 +17,8 @@ urlpatterns = [
          AdminPostDetail.as_view(), name='admindetailpost'),
     path('user/follow/<int:pk>/', FollowView.as_view(), name='follow'),
     path('user/id/<int:pk>/', UserDetail.as_view(), name='user'),
+    path('user/follow/<int:pk>/<int:pk2>/',
+         FollowView.as_view(), name='following'),
 ]
 
 

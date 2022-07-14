@@ -25,35 +25,71 @@ font-weight: 700;
 
 const Follow = (props) => {
   const { ProfileId } = props;
-  let token = localStorage.getItem("access_token");
-  const user = jwt(token);
-  const user_id = user.user_id;
-  const [data, setData] = useState({ user: [] });
-  useEffect(() => {
-    axiosInstance.get("user/id/" + user_id).then((res) => {
-      console.log(res.data);
-    });
-  }, [setData, user_id]);
-  console.log(data.user);
-  //Change follow state according to the user
-  const isFollowing = data.user.following.includes(ProfileId);
+  const [CurrentUser, setCurrentUser] = useState({ CurrentUser: [null] });
+  const [Profile, setProfile] = useState({ Profile: [null] });
+  const [isFollowing, setIsFollowing] = useState({ isFollowing: [null] });
 
   const submitFollow = (e) => {
-    axiosInstance.post(`/user/follow/` + ProfileId + `/`, {
-      user_id: user.user_id,
-    });
+    axiosInstance.post(`/user/follow/` + Profile.Profile.id + `/`, {
+      user_id: CurrentUser.CurrentUser.user_id,
+    })
+    window.location.reload(false);
   }
   const submitUnfollow = (e) => {
-    axiosInstance.delete(`/user/unfollow/` + ProfileId + `/`, {
-      user_id: user.user_id,
-    });
+    axiosInstance.delete(`/user/follow/` + Profile.Profile.id + `/`, {
+      user_id: CurrentUser.CurrentUser.user_id,
+    })
+    window.location.reload(false);
 
   }
+
+  useEffect(() => {
+    const getAlldata = async () => {
+      let token = localStorage.getItem("access_token");
+      let ProfId = await ProfileId;
+      let user = await jwt(token);
+      let user_id = await user.user_id;
+      const res = await axiosInstance.get(
+        `user/id/${user_id}/`
+      );
+      setCurrentUser({ CurrentUser: res.data });
+      const res2 = await axiosInstance.get(
+        `user/id/${ProfId}/`
+      );
+      setProfile({ Profile: res2.data });
+      const res3 = await axiosInstance.get(`user/follow/${user_id}/${ProfId}`);
+      setIsFollowing({ isFollowing: res3 });
+    }; getAlldata();
+  }, [setCurrentUser, setProfile, ProfileId, setIsFollowing]);
+
+  console.log(isFollowing.isFollowing.data);
+
   return (
-    <React.Fragment>
-      {isFollowing ? <Button onClick={submitFollow}> Follow </Button> : <Button onClick={submitUnfollow}> Unfollow </Button>}
-    </React.Fragment>
+    isFollowing.isFollowing.data === false ? <Button onClick={submitFollow}> Follow </Button> : <Button onClick={submitUnfollow}> Unfollow </Button>
+
+    // ((isFollowing === false) ? <Button onClick={submitFollow}> Follow </Button> : <Button onClick={submitUnfollow}> Unfollow </Button>) : <Button> Loading </Button>
   );
 }
+
+// console.log(CurrentUser);
+// console.log(Profile);
+// console.log(isFollowing);
+
+
+//return (Profile && CurrentUser ? isFollowing = Profile.Profile.followers.includes(CurrentUser.CurrentUser.id) : null);
+
+
+// useEffect(() => {
+//   axiosInstance.get("user/id/" + user_id).then((res) => {
+//     setCurrentUser({ CurrentUser: res.data });
+//   });
+//   axiosInstance.get("user/id/" + ProfileId).then((res) => {
+//     setProfile({ Profile: res.data });
+//   });
+//   axiosInstance.get("follow/" + user_id + "/" + ProfileId).then((res) => {
+//     setFollow({ Follow: res.data });
+//   }
+// }, [user_id, ProfileId]);
+
 
 export default Follow;
