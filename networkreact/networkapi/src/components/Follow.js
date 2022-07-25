@@ -65,31 +65,10 @@ const Follow = (props) => {
   console.log(isFollowing.isFollowing.data);
 
   return (
-    isFollowing.isFollowing.data === false ? <Button onClick={submitFollow}> Follow </Button> : <Button onClick={submitUnfollow}> Unfollow </Button>
-
-    // ((isFollowing === false) ? <Button onClick={submitFollow}> Follow </Button> : <Button onClick={submitUnfollow}> Unfollow </Button>) : <Button> Loading </Button>
+    isFollowing.isFollowing.data === "Self_user" ? <div></div> : (isFollowing.isFollowing.data === false ? <Button onClick={submitFollow}> Follow </Button> : <Button onClick={submitUnfollow}> Unfollow </Button>)
   );
 }
 
-// console.log(CurrentUser);
-// console.log(Profile);
-// console.log(isFollowing);
-
-
-//return (Profile && CurrentUser ? isFollowing = Profile.Profile.followers.includes(CurrentUser.CurrentUser.id) : null);
-
-
-// useEffect(() => {
-//   axiosInstance.get("user/id/" + user_id).then((res) => {
-//     setCurrentUser({ CurrentUser: res.data });
-//   });
-//   axiosInstance.get("user/id/" + ProfileId).then((res) => {
-//     setProfile({ Profile: res.data });
-//   });
-//   axiosInstance.get("follow/" + user_id + "/" + ProfileId).then((res) => {
-//     setFollow({ Follow: res.data });
-//   }
-// }, [user_id, ProfileId]);
-
+//IMPLEMENT A CODE TO NOT SHOW THE BUTTON IOF USER IS NOT LOGGED IN
 
 export default Follow;

@@ -83,6 +83,8 @@ class FollowView(APIView):
         user = get_object_or_404(User, id=pk)
         user2 = get_object_or_404(User, id=pk2)
         value = user2.followers.filter(id=user.id).exists()
+        if user == user2:
+            return Response("Self_user")
         return Response(value)
 
     def post(self, request, pk):

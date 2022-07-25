@@ -30,6 +30,7 @@ root.render(
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/follow/:username" element={<Follow />} />
         <Route path="/like/:id" element={<Like />} />
+        <Route path="/following" element={<Following />} />
       </Routes>
     </React.StrictMode>
   </Router>

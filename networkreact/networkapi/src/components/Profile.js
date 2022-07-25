@@ -25,6 +25,11 @@ color: white;
 font-weight: 700;
 `;
 
+const SignInText = styled.h4`
+text-align: left;
+color: white;
+`;
+
 const ProfileDetails = styled.p`
 font-size: 12px;
 color: #8899A6;
@@ -59,8 +64,10 @@ export default function Profile() {
     });
   }, [setData, username]);
 
+  let token = localStorage.getItem('access_token');
   const posts = data.profile.posts;
   const ProfileId = data.profile.id;
+
 
   return (
     <React.Fragment>
@@ -68,7 +75,7 @@ export default function Profile() {
         <ProfileWrap>
           <ProfileName>{data.profile.username}</ProfileName>
           <ProfileDetails>Has {data.profile.followers_number} followers and is following {data.profile.following_number}</ProfileDetails>
-          <Follow ProfileId={ProfileId} />
+          {!token ? <SignInText>Sign In to start following {data.profile.username}</SignInText> : <Follow ProfileId={ProfileId} />}
         </ProfileWrap>
         <Wrapper>
           <ProfileTimeline posts={posts} />
