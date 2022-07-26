@@ -13,6 +13,7 @@ import Edit from './components/Edit';
 import Follow from './components/Follow';
 import Like from './components/Like';
 import ProfileTimeline from './components/ProfileTimeline';
+import Following from './components/Following';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
