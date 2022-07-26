@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import jwt from "jwt-decode";
@@ -52,29 +52,32 @@ display:flex;
 justify-content: center;
 `;
 ///IMPLEMENTATION OF THE FOLLOWING PAGE
-useEffect(() => {
-  const fetchData = async () => {
-    let token = localStorage.getItem("access_token");
-    let user_id = await jwt(token).user_id;
+export default function Following() {
+  //Implementation Via Backend
+  let token = localStorage.getItem("access_token");
+  let user = jwt(token).user_id;
 
+  axiosInstance.get(`user/follows/${user}/posts/`).then((res) => {
+    console.log(res.data);
+  });
 
-    //if (!posts || posts.length === 0) return <p> Could not find any posts, sorry</p>;
-    /*return (
-      <React.Fragment>
-        <Home>
-          <Timeline>
-            {posts.map((post) => {
-              return (
-                <Postitem key={post.id} button divider square>
-                  <Postheader><ProfileLink to={"/Profile/" + post.author_name}>{post.author_name} said:</ProfileLink></Postheader>
-                  <Postcontent>{post.content}</Postcontent>
-                  <Postdetail>{post.likes_line} last modified at: {post.edited}</Postdetail>
-                </Postitem>
-              )
-            })}
-          </Timeline>
-        </Home>
-      </React.Fragment >
-    );*/
-    return <div>Following</div>
-  }
+  //if (!posts || posts.length === 0) return <p> Could not find any posts, sorry</p>;
+  /*return (
+    <React.Fragment>
+      <Home>
+        <Timeline>
+          {posts.map((post) => {
+            return (
+              <Postitem key={post.id} button divider square>
+                <Postheader><ProfileLink to={"/Profile/" + post.author_name}>{post.author_name} said:</ProfileLink></Postheader>
+                <Postcontent>{post.content}</Postcontent>
+                <Postdetail>{post.likes_line} last modified at: {post.edited}</Postdetail>
+              </Postitem>
+            )
+          })}
+        </Timeline>
+      </Home>
+    </React.Fragment >
+  );*/
+  return <div>Following</div>
+}

@@ -1,7 +1,7 @@
 #from .views import PostList, PostDetail, UserCreate, UserList, UserDetail
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PostList, UserList, BlacklistTokenView, CreatePost, EditPost, AdminPostDetail, FollowView, UserDetail
+from .views import PostList, UserList, BlacklistTokenView, CreatePost, EditPost, AdminPostDetail, FollowView, FollowPosts, UserDetail
 
 app_name = 'network_api'
 
@@ -19,6 +19,8 @@ urlpatterns = [
     path('user/id/<int:pk>/', UserDetail.as_view(), name='user'),
     path('user/follow/<int:pk>/<int:pk2>/',
          FollowView.as_view(), name='following'),
+    path('user/follows/<int:pk>/posts/',
+         FollowPosts.as_view(), name='followposts'),
 ]
 
 

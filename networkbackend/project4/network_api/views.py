@@ -76,6 +76,18 @@ class EditPost(generics.UpdateAPIView):
     queryset = Post.objects.all()
 
 
+class FollowPosts(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = PostSerializer
+
+    def get(self, request, pk):
+        user = get_object_or_404(User, id=pk)
+        follows = user.following.all()
+        posts = Post.objects.filter(author__in=follows)
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)
+
+
 class FollowView(APIView):
     permission_classes = [IsAuthenticated]
 
