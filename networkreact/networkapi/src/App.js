@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 import Posts from "./components/Posts";
-import PostLoadingComponent from "./components/PostLoading";
+import HomePage from "./components/HomePage";
+import axios from "axios";
+import axiosInstance from "./axios";
+import jwt from "jwt-decode";
 
 function App() {
-  const PostLoading = PostLoadingComponent(Posts);
-  const [appState, setAppState] = useState({
-    loading: false,
-    posts: null,
-  });
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    setAppState({ loading: true });
-    const apiUrl = `http://127.0.0.1:8000/api/posts/`;
-    fetch(apiUrl)
-      .then((data) => data.json())
-      .then((posts) => {
-        setAppState({ loading: false, posts: posts });
-      });
-  }, [setAppState]);
+    const fetchPosts = async () => {
+      setLoading(true);
+      const res = await axiosInstance.get(`posts/`);
+      setPosts(res.data);
+      setLoading(false);
+    }
+    fetchPosts();
+  }, []);
+
   return (
-    <body class='App-background'>
-      <div className="App">
-        <PostLoading isLoading={appState.loading} posts={appState.posts} />
-      </div>
-    </body>);
+    <React.Fragment>
+      <HomePage posts={posts} loading={loading} />
+    </React.Fragment>
+  );
 }
 export default App;

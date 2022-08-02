@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Postform from "./Postform";
+import Pagination from "./Pagination";
+import Editcontent from "./Editcontent";
+import { useEffect } from "react";
+import Like from "./Like";
 import jwt from "jwt-decode";
 
 const Postheader = styled.h1`
@@ -52,40 +55,50 @@ display:flex;
 justify-content: center;
 `;
 
-const Posts = (props) => {
+const Posts = ({ posts, loading }) => {
 
-  let isLoggedIn = false;
-  let token = localStorage.getItem("access_token");
+  const [currentUser, setCurrentUser] = useState({ currentUser: [null] });
 
-  function LoggedStatus(props) {
-    if (props === null) {
-      return isLoggedIn = false;
-    } else {
-      return isLoggedIn = true;
-    }
+  useEffect(() => {
+    const getAlldata = async () => {
+      let token = localStorage.getItem("access_token");
+      let userId = await jwt(token).user_id;
+      setCurrentUser({ currentUser: userId });
+    }; getAlldata();
+  }, [setCurrentUser]);
+
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
+
+  //Get Page Posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  //Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
+  if (loading) {
+    return <h2> Loading ...</h2>
   }
 
-  LoggedStatus(token);
-
-  const { posts } = props;
-  if (!posts || posts.length === 0) return <p> Could not find any posts, sorry</p>;
   return (
-    <React.Fragment>
-      <Home>
-        {isLoggedIn ? <Postform /> : <p>You must be logged in to post</p>}
-        <Timeline>
-          {posts.map((post) => {
-            return (
-              <Postitem key={post.id} button divider square>
-                <Postheader><ProfileLink to={"/Profile/" + post.author_name}>{post.author_name} said:</ProfileLink></Postheader>
-                <Postcontent>{post.content}</Postcontent>
-                <Postdetail>{post.likes_line} last modified at: {post.edited}</Postdetail>
-              </Postitem>
-            )
-          })}
-        </Timeline>
-      </Home>
-    </React.Fragment >
+    <Timeline>
+      {currentPosts.map((post) => {
+        return (
+          <Postitem key={post.id} button divider square>
+            <Postheader><ProfileLink to={"/Profile/" + post.author_name}>{post.author_name} said:</ProfileLink></Postheader>
+            <Editcontent postId={post.id} content={post.content} userId={post.author} currentUser={currentUser} />
+            {/* <Postcontent>{post.content}</Postcontent> */}
+            <Postdetail>{post.likes_line} last modified at: {post.edited}</Postdetail>
+            <Like userId={currentUser} postId={post.id} />
+          </Postitem>
+        )
+      })}
+      <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} />
+    </Timeline>
   );
 }
 

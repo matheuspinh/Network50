@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import jwt from "jwt-decode";
 import axiosInstance from "../axios";
+import Posts from "./Posts";
 
 const Postheader = styled.h1`
 font-size: 15px;
@@ -57,15 +58,21 @@ export default function Following() {
   let token = localStorage.getItem("access_token");
   let user = jwt(token).user_id;
 
-  axiosInstance.get(`user/follows/${user}/posts/`).then((res) => {
-    console.log(res.data);
-  });
+  const [data, setData] = useState({ posts: [] });
+  useEffect(() => {
+    axiosInstance.get(`user/follows/${user}/posts/`).then((res) => {
+      setData({ posts: res.data });
+    });
+  }, [setData, user]);
 
-  //if (!posts || posts.length === 0) return <p> Could not find any posts, sorry</p>;
-  /*return (
+  const posts = data.posts;
+
+  if (!posts || posts.length === 0) return <p>Start Following someone to see their posts!</p>;
+  return (
     <React.Fragment>
       <Home>
-        <Timeline>
+        <Posts posts={posts} />
+        {/* <Timeline>
           {posts.map((post) => {
             return (
               <Postitem key={post.id} button divider square>
@@ -75,9 +82,8 @@ export default function Following() {
               </Postitem>
             )
           })}
-        </Timeline>
+        </Timeline> */}
       </Home>
     </React.Fragment >
-  );*/
-  return <div>Following</div>
+  );
 }

@@ -4,12 +4,14 @@ import { useParams } from 'react-router-dom';
 import styled from "styled-components";
 import ProfileTimeline from "./ProfileTimeline";
 import Follow from "./Follow";
+import Posts from "./Posts";
 
 const Wrapper = styled.section`
 display:flex;
 justify-content:center;
 margin-top: 100px;
 flex-direction: column;
+align-items: center;
 `;
 
 const ProfileWrap = styled.div`
@@ -56,29 +58,39 @@ font-weight: 700;
 
 export default function Profile() {
   const { username } = useParams();
+  console.log(username);
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const token = localStorage.getItem('access_token');
 
-  const [data, setData] = useState({ profile: [] });
   useEffect(() => {
-    axiosInstance.get('user/' + username).then((res) => {
-      setData({ profile: res.data });
-    });
-  }, [setData, username]);
+    const fetchData = async () => {
+      setLoading(true);
+      const res = await axiosInstance.get(`user/${username}`);
+      setData(res.data);
+      setLoading(false);
+    }
+    fetchData(username);
+  }, [username]);
 
-  let token = localStorage.getItem('access_token');
-  const posts = data.profile.posts;
-  const ProfileId = data.profile.id;
+  console.log(data);
+  console.log(loading);
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
 
 
   return (
     <React.Fragment>
       <Wrapper>
         <ProfileWrap>
-          <ProfileName>{data.profile.username}</ProfileName>
-          <ProfileDetails>Has {data.profile.followers_number} followers and is following {data.profile.following_number}</ProfileDetails>
-          {!token ? <SignInText>Sign In to start following {data.profile.username}</SignInText> : <Follow ProfileId={ProfileId} />}
+          <ProfileName>{data.username}</ProfileName>
+          <ProfileDetails>Has {data.followers_number} followers and is following {data.following_number}</ProfileDetails>
+          {!token ? <SignInText>Sign In to start following {data.username}</SignInText> : <Follow ProfileId={data.id} />}
         </ProfileWrap>
         <Wrapper>
-          <ProfileTimeline posts={posts} />
+          <Posts posts={data.posts} />
         </Wrapper>
       </Wrapper>
     </React.Fragment>

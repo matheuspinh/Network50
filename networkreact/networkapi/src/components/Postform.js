@@ -5,10 +5,8 @@ import styled from "styled-components";
 import jwt from 'jwt-decode';
 
 const Input = styled.textarea`
-height:40px;
 background-color:black;
-border-radius:10px;
-width:250px;
+border-radius:3px;
 box-sizing: border-box;
 border: 1px solid black;
 color:white;
@@ -23,7 +21,8 @@ const RegisterForm = styled.form`
 display: flex;
 flex-direction: column;
 justify-content: space-evenly;
-align-items: center;`;
+align-items: center;
+margin-top: 40px;`;
 
 const Button = styled.button.attrs((/* props */) => ({ tabIndex: 0 }))`
 height:40px;
@@ -31,8 +30,10 @@ background-color:black;
 color: white;
 width: 80px;
 border-radius:20px;
-border: black;
+border-color: white;
+border-width: 2px;
 font-weight: 700;
+margin-top: 20px;
 
 &:hover {
   background-color: grey;
@@ -80,7 +81,7 @@ export default function NewPost() {
     <React.Fragment>
       <RegisterForm onSubmit={handleSubmit}>
         <Input label="content" id="content" type="text" name="content" placeholder="What's on your mind?" onChange={handleChange} />
-        <Button type="submit" onClick={handleSubmit}>Submit</Button>
+        <Button type="submit" onClick={handleSubmit}>Post</Button>
       </RegisterForm>
     </React.Fragment>
   );

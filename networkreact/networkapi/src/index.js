@@ -9,9 +9,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Profile from './components/Profile';
 import Postform from './components/Postform';
-import Edit from './components/Edit';
 import Follow from './components/Follow';
-import Like from './components/Like';
 import ProfileTimeline from './components/ProfileTimeline';
 import Following from './components/Following';
 
@@ -28,9 +26,7 @@ root.render(
         <Route path="/logout" element={<Logout />} />
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/postform" element={<Postform />} />
-        <Route path="/edit/:id" element={<Edit />} />
         <Route path="/follow/:username" element={<Follow />} />
-        <Route path="/like/:id" element={<Like />} />
         <Route path="/following" element={<Following />} />
       </Routes>
     </React.StrictMode>
