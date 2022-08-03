@@ -22,7 +22,7 @@ class ProfileUserPermission(BasePermission):
 
 
 class PostList(viewsets.ModelViewSet):
-    permission_classes = [PostUserWritePermission]
+    permission_classes = [IsAuthenticated]
     serializer_class = PostSerializer
 
     def get_object(self, queryset=None, **kwargs):
@@ -86,6 +86,26 @@ class FollowPosts(APIView):
         posts = Post.objects.filter(author__in=follows)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
+
+
+class LikeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request, pk):
+        post = get_object_or_404(Post, id=pk)
+        post.likes.add(request.user)
+        return Response(status=status.HTTP_200_OK)
+
+    def delete(self, request, pk):
+        post = get_object_or_404(Post, id=pk)
+        post.likes.remove(request.user)
+        return Response(status=status.HTTP_200_OK)
+
+    def get(self, request, pk):
+        post = get_object_or_404(Post, id=pk)
+        value = post.likes.filter(id=request.user.id).exists()
+        likesline = post.likes_line()
+        return Response([value, likesline])
 
 
 class FollowView(APIView):

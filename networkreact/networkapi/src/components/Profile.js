@@ -73,9 +73,6 @@ export default function Profile() {
     fetchData(username);
   }, [username]);
 
-  console.log(data);
-  console.log(loading);
-
   if (loading) {
     return <h2>Loading...</h2>;
   }

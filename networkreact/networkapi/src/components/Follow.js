@@ -33,14 +33,13 @@ const Follow = (props) => {
     axiosInstance.post(`/user/follow/` + Profile.Profile.id + `/`, {
       user_id: CurrentUser.CurrentUser.user_id,
     })
-    window.location.reload(false);
+    window.location.reload();
   }
   const submitUnfollow = (e) => {
     axiosInstance.delete(`/user/follow/` + Profile.Profile.id + `/`, {
       user_id: CurrentUser.CurrentUser.user_id,
     })
-    window.location.reload(false);
-
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -68,7 +67,5 @@ const Follow = (props) => {
     isFollowing.isFollowing.data === "Self_user" ? <div></div> : (isFollowing.isFollowing.data === false ? <Button onClick={submitFollow}> Follow </Button> : <Button onClick={submitUnfollow}> Unfollow </Button>)
   );
 }
-
-//IMPLEMENT A CODE TO NOT SHOW THE BUTTON IOF USER IS NOT LOGGED IN
 
 export default Follow;

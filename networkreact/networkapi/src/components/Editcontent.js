@@ -27,6 +27,11 @@ textarea:focus {
 }
 `;
 
+const Postdetail = styled.p`
+font-size: 12px;
+color: #8899A6;
+`;
+
 const Button = styled.button.attrs((/* props */) => ({ tabIndex: 0 }))`
 height: 20px;
 background-color:#333;
@@ -37,9 +42,10 @@ color:white;
 };
 `;
 
-const EditContent = ({ postId, content, userId, currentUser }) => {
+const EditContent = ({ timestamp, postId, content, userId, currentUser }) => {
   const currentUserId = currentUser.currentUser;
   const [editingContent, setEditingContent] = useState(content);
+  const [editedTime, setEditedTime] = useState(timestamp);
 
   const onChange = (e) => setEditingContent(e.target.value);
 
@@ -47,14 +53,20 @@ const EditContent = ({ postId, content, userId, currentUser }) => {
     if (e.key === "Enter" || e.key === "Escape") {
       e.target.blur();
       updateContent(editingContent);
+      updateTime(editedTime);
     };
   };
   const updateContent = (content) => {
     axiosInstance.patch(`/post/edit/${postId}/`, { content: content });
   };
 
-  console.log(userId)
-  console.log(currentUser)
+  const updateTime = (timestamp) => {
+    axiosInstance.get(`/posts/${postId}/`).then((res) => {
+      setEditedTime(res.data.edited);
+    }
+    );
+  }
+
 
   const onBlur = (e) => {
     if (e.target.value.trim() === "") {
@@ -74,6 +86,7 @@ const EditContent = ({ postId, content, userId, currentUser }) => {
   return (
     <React.Fragment>
       {userId === currentUserId ? <PostContentEdit rows={1} onBlur={onBlur} onInput={(e) => onInput(e.target)} value={editingContent} onKeyDown={onKeyDown} onChange={onChange} /> : <PostContent>{content}</PostContent>}
+      <Postdetail>last modified at: {editedTime}</Postdetail>
     </React.Fragment>
   )
 }

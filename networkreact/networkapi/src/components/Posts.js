@@ -67,16 +67,17 @@ const Posts = ({ posts, loading }) => {
     }; getAlldata();
   }, [setCurrentUser]);
 
+  const LoggedUser = currentUser.currentUser[0];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
-  //Get Page Posts
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-  //Change page
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 
@@ -90,10 +91,8 @@ const Posts = ({ posts, loading }) => {
         return (
           <Postitem key={post.id} button divider square>
             <Postheader><ProfileLink to={"/Profile/" + post.author_name}>{post.author_name} said:</ProfileLink></Postheader>
-            <Editcontent postId={post.id} content={post.content} userId={post.author} currentUser={currentUser} />
-            {/* <Postcontent>{post.content}</Postcontent> */}
-            <Postdetail>{post.likes_line} last modified at: {post.edited}</Postdetail>
-            <Like userId={currentUser} postId={post.id} />
+            <Editcontent timestamp={post.edited} postId={post.id} content={post.content} userId={post.author} currentUser={currentUser} />
+            {LoggedUser === null ? <div></div> : (currentUser.currentUser !== post.author ? <Like likes={post.likes_line} userId={currentUser} postId={post.id} /> : <div></div>)}
           </Postitem>
         )
       })}
