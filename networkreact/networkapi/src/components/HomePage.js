@@ -26,7 +26,9 @@ export default function HomePage({ posts, loading }) {
 
   return (
     <React.Fragment>
-      {isLoggedIn ? <Postform /> : <p>You must be logged in to post</p>}
+      <Wrapper>
+        {isLoggedIn ? <Postform /> : <p>You must be logged in to post</p>}
+      </Wrapper>
       <Wrapper>
         <Posts posts={posts} loading={loading} />
       </Wrapper>

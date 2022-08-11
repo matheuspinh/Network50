@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axiosInstance from "../axios";
-import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import jwt from "jwt-decode";
 

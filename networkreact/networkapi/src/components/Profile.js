@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axios';
 import { useParams } from 'react-router-dom';
 import styled from "styled-components";
-import ProfileTimeline from "./ProfileTimeline";
 import Follow from "./Follow";
 import Posts from "./Posts";
 

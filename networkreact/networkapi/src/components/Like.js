@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axiosInstance from "../axios";
-import jwt from "jwt-decode";
 
 const Postdetail = styled.p`
 font-size: 12px;
@@ -72,7 +71,6 @@ const Like = (props) => {
     submitUnlike().then(setLikeStatus());
   }
 
-  console.log(isLiked.isLiked);
 
   return (
     <React.Fragment>
