@@ -72,13 +72,12 @@ const Posts = ({ posts, loading }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
-
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const nextPage = () => setCurrentPage(currentPage + 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
 
 
   if (loading) {
@@ -96,7 +95,7 @@ const Posts = ({ posts, loading }) => {
           </Postitem>
         )
       })}
-      <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} />
+      <Pagination currentPage={currentPage} prevPage={prevPage} nextPage={nextPage} postsPerPage={postsPerPage} totalPosts={posts.length} />
     </Timeline>
   );
 }

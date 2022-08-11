@@ -12,12 +12,12 @@ border: 1px solid black;
 color:white;
 text-align: center;
 width: 600px;
-height: 200px;
+height: 150px;
 resize: none;
 text-align: left;
 `;
 
-const RegisterForm = styled.form`
+const PostForm = styled.form`
 display: flex;
 flex-direction: column;
 justify-content: space-evenly;
@@ -79,10 +79,10 @@ export default function NewPost() {
 
   return (
     <React.Fragment>
-      <RegisterForm onSubmit={handleSubmit}>
+      <PostForm onSubmit={handleSubmit}>
         <Input label="content" id="content" type="text" name="content" placeholder="What's on your mind?" onChange={handleChange} />
         <Button type="submit" onClick={handleSubmit}>Post</Button>
-      </RegisterForm>
+      </PostForm>
     </React.Fragment>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
-import Posts from "./components/Posts";
+import Header from "./components/Header";
 import HomePage from "./components/HomePage";
 import axios from "axios";
 import axiosInstance from "./axios";
